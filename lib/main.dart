@@ -37,7 +37,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final inputTextController = TextEditingController();
-  double _currentSliderValue = 20;
+  double currentSliderValue = 20;
+  double volume = 1;
   final TextToSpeech tts = TextToSpeech();
 
   @override
@@ -63,11 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 50),
             Center(
                 child: Lottie.network(
-              'https://assets5.lottiefiles.com/packages/lf20_ARsTjl5MXG.json',
-              width: 200,
-              height: 200,
-              fit: BoxFit.fill,
-            )),
+                  'https://assets5.lottiefiles.com/packages/lf20_ARsTjl5MXG.json',
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.fill,
+                )),
             const SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -79,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      tts.speak(inputTextController.text);
+                      tts.speak(inputTextController.text)
                     },
                     icon: const Icon(Icons.mic),
                   ),
@@ -88,13 +89,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Slider(
-              value: _currentSliderValue,
+              value: currentSliderValue,
               max: 100,
               divisions: 5,
-              label: _currentSliderValue.round().toString(),
+              label: currentSliderValue.round().toString(),
               onChanged: (double value) {
                 setState(() {
-                  _currentSliderValue = value;
+                  currentSliderValue = value;
+                  tts.setVolume(value);
                 });
               },
             ),
