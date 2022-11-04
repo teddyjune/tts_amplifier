@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:text_to_speech/text_to_speech.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,6 +38,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final inputTextController = TextEditingController();
   double _currentSliderValue = 20;
+  TextToSpeech tts = TextToSpeech();
 
   @override
   void dispose() {
@@ -55,46 +57,55 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 50),
-          Center(
-              child: Lottie.network(
-            'https://assets5.lottiefiles.com/packages/lf20_ARsTjl5MXG.json',
-            width: 200,
-            height: 200,
-            fit: BoxFit.fill,
-          )),
-          const SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: inputTextController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 50),
+            Center(
+                child: Lottie.network(
+              'https://assets5.lottiefiles.com/packages/lf20_ARsTjl5MXG.json',
+              width: 200,
+              height: 200,
+              fit: BoxFit.fill,
+            )),
+            const SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                controller: inputTextController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.send),
+                  ),
+                  hintText: '글을 쓰세요',
                 ),
-                suffixIcon: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.send),
-                ),
-                hintText: '글을 쓰세요',
               ),
             ),
-          ),
-          Slider(
-            value: _currentSliderValue,
-            max: 100,
-            divisions: 5,
-            label: _currentSliderValue.round().toString(),
-            onChanged: (double value) {
-              setState(() {
-                _currentSliderValue = value;
-              });
-            },
-          ),
-        ],
+            Slider(
+              value: _currentSliderValue,
+              max: 100,
+              divisions: 5,
+              label: _currentSliderValue.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  _currentSliderValue = value;
+                });
+              },
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  Future<void> ttsService() async {
+    final tts = TextToSpeech();
+    Future<void> speak(String text) async {
+      await tts.speak(text);
+    }
   }
 }
