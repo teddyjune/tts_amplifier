@@ -64,11 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 50),
             Center(
                 child: Lottie.network(
-                  'https://assets5.lottiefiles.com/packages/lf20_ARsTjl5MXG.json',
-                  width: 200,
-                  height: 200,
-                  fit: BoxFit.fill,
-                )),
+              'https://assets5.lottiefiles.com/packages/lf20_ARsTjl5MXG.json',
+              width: 200,
+              height: 200,
+              fit: BoxFit.fill,
+            )),
             const SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      tts.speak(inputTextController.text)
+                      tts.speak(inputTextController.text);
                     },
                     icon: const Icon(Icons.mic),
                   ),
