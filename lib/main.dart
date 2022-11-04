@@ -78,7 +78,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(16.0),
                   ),
                   suffixIcon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      ttsService() async {
+                        final tts = TextToSpeech();
+                        Future<void> speak(String text) async {
+                          await tts.speak(inputTextController.text);
+                        }
+                      }
+                    },
                     icon: const Icon(Icons.send),
                   ),
                   hintText: '글을 쓰세요',
@@ -100,12 +107,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-  }
-
-  Future<void> ttsService() async {
-    final tts = TextToSpeech();
-    Future<void> speak(String text) async {
-      await tts.speak(text);
-    }
   }
 }
