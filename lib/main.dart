@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final inputTextController = TextEditingController();
   double _currentSliderValue = 20;
-  TextToSpeech tts = TextToSpeech();
+  final TextToSpeech tts = TextToSpeech();
 
   @override
   void dispose() {
@@ -79,14 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      ttsService() async {
-                        final tts = TextToSpeech();
-                        Future<void> speak(String text) async {
-                          await tts.speak(inputTextController.text);
-                        }
-                      }
+                      tts.speak(inputTextController.text);
                     },
-                    icon: const Icon(Icons.send),
+                    icon: const Icon(Icons.mic),
                   ),
                   hintText: '글을 쓰세요',
                 ),
